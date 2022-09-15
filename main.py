@@ -46,7 +46,7 @@ async def fetch_data(Quantity: int):
 #3° consulta requerida
 @app.get("/Nombre del circuito más corrido")
 async def fetch_data(Quantity: int):
-    consulta = "SELECT name, count(raceId) as carreras FROM races GROUP BY name ORDER BY carreras DESC LIMIT {}".format(str(Quantity))
+    consulta = "SELECT c.name, count(raceId) as carreras   FROM races  r join circuits c on c.circuitId = r.circuitId GROUP BY c.name ORDER BY carreras DESC LIMIT {}".format(str(Quantity))
     results = await database.fetch_all(query=consulta)
     return  results
 
