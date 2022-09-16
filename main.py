@@ -38,7 +38,7 @@ async def fetch_data(Quantity: int):
 #2° consulta requerida
 @app.get("/Piloto con mayor cantidad de primeros puestos")
 async def fetch_data(Quantity: int):
-    consulta = "SELECT r.driverId ,surname,forename, count(r.position) FROM results r JOIN drivers d ON r.driverId = d.driverId WHERE Position = 1".format(str(Quantity))
+    consulta = "SELECT r.driverId ,surname,forename, count(r.position) FROM results r JOIN drivers d ON r.driverId = d.driverId WHERE Position = 1 GROUP BY r.driverId ORDER BY count(r.position) DESC LIMIT {}".format(str(Quantity))
     results = await database.fetch_all(query=consulta)
     return  results
 
